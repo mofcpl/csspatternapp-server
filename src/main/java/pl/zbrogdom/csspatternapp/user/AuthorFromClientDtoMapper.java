@@ -3,9 +3,9 @@ package pl.zbrogdom.csspatternapp.user;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthorNewDtoMapper {
+public class AuthorFromClientDtoMapper {
 
-    Author map(AuthorNewDto dto) {
+    Author map(AuthorFromClientDto dto) {
         Author author = new Author();
         author.setEmail(dto.getEmail());
         author.setName(dto.getName());
@@ -14,8 +14,8 @@ public class AuthorNewDtoMapper {
         return author;
     }
 
-    AuthorNewDto map(Author author) {
-        AuthorNewDto dto = new AuthorNewDto();
+    AuthorFromClientDto map(Author author) {
+        AuthorFromClientDto dto = new AuthorFromClientDto();
         dto.setHomePage(author.getHomePage());
         dto.setName(author.getName());
         dto.setEmail(author.getEmail());

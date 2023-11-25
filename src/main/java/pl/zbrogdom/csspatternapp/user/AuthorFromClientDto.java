@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.URL;
 
-public class AuthorNewDto {
+public class AuthorFromClientDto {
 
     @NotNull
     @Size(min = 5, max = 50)
@@ -22,10 +22,10 @@ public class AuthorNewDto {
     @Size(min = 8)
     private String password;
 
-    public AuthorNewDto() {
+    public AuthorFromClientDto() {
     }
 
-    public AuthorNewDto(String name, String email, String homePage, String password) {
+    public AuthorFromClientDto(String name, String email, String homePage, String password) {
         this.name = name;
         this.email = email;
         this.homePage = homePage;

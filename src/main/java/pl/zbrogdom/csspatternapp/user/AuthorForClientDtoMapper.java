@@ -7,16 +7,16 @@ import pl.zbrogdom.csspatternapp.project.ProjectRepository;
 import java.util.Arrays;
 
 @Service
-public class AuthorDtoMapper {
+public class AuthorForClientDtoMapper {
 
     private final ProjectRepository repository;
 
-    public AuthorDtoMapper(ProjectRepository repository) {
+    public AuthorForClientDtoMapper(ProjectRepository repository) {
         this.repository = repository;
     }
 
-    AuthorDto map(Author author) {
-        AuthorDto dto = new AuthorDto();
+    AuthorForClientDto map(Author author) {
+        AuthorForClientDto dto = new AuthorForClientDto();
         dto.setId(author.getId());
         dto.setEmail(author.getEmail());
         dto.setName(author.getName());
@@ -25,7 +25,7 @@ public class AuthorDtoMapper {
         return dto;
     }
 
-    Author map(AuthorDto dto) {
+    Author map(AuthorForClientDto dto) {
         Author author = new Author();
         author.setEmail(dto.getEmail());
         author.setId(dto.getId());

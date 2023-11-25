@@ -10,30 +10,30 @@ import java.util.stream.StreamSupport;
 public class AuthorService {
 
     private final AuthorRepository repository;
-    private final AuthorDtoMapper authorDtoMapper;
-    private final AuthorNewDtoMapper authorNewDtoMapper;
+    private final AuthorForClientDtoMapper authorDtoMapper;
+    private final AuthorFromClientDtoMapper authorNewDtoMapper;
 
-    public AuthorService(AuthorRepository repository, AuthorDtoMapper dtoMapper, AuthorNewDtoMapper authorNewDtoMapper) {
+    public AuthorService(AuthorRepository repository, AuthorForClientDtoMapper dtoMapper, AuthorFromClientDtoMapper authorNewDtoMapper) {
         this.repository = repository;
         this.authorDtoMapper = dtoMapper;
         this.authorNewDtoMapper = authorNewDtoMapper;
     }
 
-    public List<AuthorDto> getAuthors() {
+    public List<AuthorForClientDto> getAuthors() {
         return StreamSupport.stream(this.repository.findAll().spliterator(), false)
                 .map(authorDtoMapper::map)
                 .toList();
     }
 
-    public Optional<AuthorDto> getAuthor(Long id) {
+    public Optional<AuthorForClientDto> getAuthor(Long id) {
         return this.repository.findById(id).map(authorDtoMapper::map);
     }
 
-    public Optional<AuthorNewDto> getAuthorForPatch(Long id) {
-        return this.repository.findById(id).map(authorNewDtoMapper::map);
+    public Optional<Author> getAuthorByEmail(String email) {
+        return this.repository.findByEmail(email);
     }
 
-    public AuthorDto saveProject(AuthorNewDto projectDto) {
+    public AuthorForClientDto saveProject(AuthorFromClientDto projectDto) {
         Author projectToSave = authorNewDtoMapper.map(projectDto);
         Author savedProject = this.repository.save(projectToSave);
         return authorDtoMapper.map(savedProject);

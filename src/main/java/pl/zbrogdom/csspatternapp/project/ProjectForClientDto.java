@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
-public class ProjectDto {
+public class ProjectForClientDto {
 
     private Long id;
     private Long author;

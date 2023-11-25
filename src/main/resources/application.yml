@@ -1,3 +1,5 @@
 spring:
   liquibase:
     change-log: classpath:db/master.xml
+jws:
+  sharedKey: asdewefq-as4g-5hs7-hdec-75bdgh54fqsj

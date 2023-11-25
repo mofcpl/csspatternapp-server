@@ -1,6 +1,6 @@
 package pl.zbrogdom.csspatternapp.user;
 
-public class AuthorDto {
+public class AuthorForClientDto {
 
     private Long id;
     private String name;
@@ -8,10 +8,10 @@ public class AuthorDto {
     private String homePage;
     private Long[] projects;
 
-    public AuthorDto() {
+    public AuthorForClientDto() {
     }
 
-    public AuthorDto(Long id, String name, String email, String homePage, Long[] projects) {
+    public AuthorForClientDto(Long id, String name, String email, String homePage, Long[] projects) {
         this.id = id;
         this.name = name;
         this.email = email;

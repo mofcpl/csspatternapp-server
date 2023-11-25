@@ -1,6 +1,8 @@
 package pl.zbrogdom.csspatternapp.project;
 
 import org.springframework.stereotype.Service;
+import pl.zbrogdom.csspatternapp.user.Author;
+import pl.zbrogdom.csspatternapp.user.AuthorFromClientDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,33 +13,40 @@ import java.util.stream.StreamSupport;
 public class ProjectService {
 
     private final ProjectRepository repository;
-    private final ProjectDtoMapper projectDtoMapper;
+    private final ProjectForClientDtoMapper projectForClientDtoMapper;
+    private final ProjectFromClientDtoMapper projectFromClientDtoMapper;
 
-    public ProjectService(ProjectRepository repository, ProjectDtoMapper projectDtoMapper) {
+    public ProjectService(ProjectRepository repository, ProjectForClientDtoMapper projectDtoMapper, ProjectFromClientDtoMapper projectFromClientDtoMapper) {
         this.repository = repository;
-        this.projectDtoMapper = projectDtoMapper;
+        this.projectForClientDtoMapper = projectDtoMapper;
+        this.projectFromClientDtoMapper = projectFromClientDtoMapper;
     }
 
-    public Optional<ProjectDto> getProject(long id) {
-       return this.repository.findById(id).map(projectDtoMapper::map);
+    public Optional<ProjectForClientDto> getProject(long id) {
+       return this.repository.findById(id).map(projectForClientDtoMapper::map);
     }
 
-    public List<ProjectDto> getProjects() {
+    public List<ProjectForClientDto> getProjects() {
         return StreamSupport.stream(this.repository.findAll().spliterator(), false)
-                .map(projectDtoMapper::map)
+                .map(projectForClientDtoMapper::map)
                 .toList();
     }
 
-    public ProjectDto saveProject(ProjectNewDto projectDto) {
-        Project projectToSave = projectDtoMapper.map(projectDto);
+
+
+    public ProjectForClientDto saveProject(ProjectFromClientDto projectDto) {
+        Project projectToSave = projectFromClientDtoMapper.map(projectDto);
         projectToSave.setPublishDate(LocalDateTime.now());
         projectToSave.setDownloads(0);
         Project savedProject = this.repository.save(projectToSave);
-        return projectDtoMapper.map(savedProject);
+        return projectForClientDtoMapper.map(savedProject);
     }
 
-    public void updateProject(ProjectDto projectDto) {
-        Project project = projectDtoMapper.map(projectDto);
+    public Optional<Project> getProjectForPatch(Long id) {
+        return this.repository.findById(id);
+    }
+
+    public void updateProject(Project project) {
         repository.save(project);
     }
 

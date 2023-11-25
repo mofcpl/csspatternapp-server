@@ -5,17 +5,17 @@ import pl.zbrogdom.csspatternapp.user.Author;
 import pl.zbrogdom.csspatternapp.user.AuthorRepository;
 
 @Service
-public class ProjectDtoMapper {
+public class ProjectForClientDtoMapper {
 
     private final AuthorRepository authorRepository;
 
-    public ProjectDtoMapper(AuthorRepository authorRepository) {
+    public ProjectForClientDtoMapper(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
 
 
-    ProjectDto map(Project project) {
-        ProjectDto dto = new ProjectDto();
+    ProjectForClientDto map(Project project) {
+        ProjectForClientDto dto = new ProjectForClientDto();
         dto.setAuthor(project.getAuthor().getId());
         dto.setData(project.getData());
         dto.setDownloads(project.getDownloads());
@@ -26,7 +26,7 @@ public class ProjectDtoMapper {
         return dto;
     }
 
-    Project map(ProjectDto dto) {
+    Project map(ProjectForClientDto dto) {
         Project project = new Project();
         project.setData(dto.getData());
         project.setDownloads(dto.getDownloads());
@@ -39,13 +39,5 @@ public class ProjectDtoMapper {
         return project;
     }
 
-    Project map(ProjectNewDto dto) {
-        Project project = new Project();
-        project.setData(dto.getData());
-        project.setStyle(dto.getStyle());
-        project.setTitle(dto.getTitle());
-        Author author = authorRepository.findById(dto.getAuthor()).orElseThrow();
-        project.setAuthor(author);
-        return project;
-    }
+
 }

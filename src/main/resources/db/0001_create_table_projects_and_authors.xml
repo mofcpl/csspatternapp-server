@@ -25,7 +25,7 @@
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="email" type="VARCHAR(50)">
-                <constraints nullable="false" />
+                <constraints nullable="false" unique="true" />
             </column>
             <column name="home_page" type="VARCHAR(255)"/>
             <column name="name" type="VARCHAR(50)">

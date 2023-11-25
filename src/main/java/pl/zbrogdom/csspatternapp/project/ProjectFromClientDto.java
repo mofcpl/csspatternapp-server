@@ -3,10 +3,7 @@ package pl.zbrogdom.csspatternapp.project;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class ProjectNewDto {
-
-    @NotNull
-    private Long author;
+public class ProjectFromClientDto {
 
     @NotNull
     @Size(min = 5, max = 50)
@@ -18,22 +15,13 @@ public class ProjectNewDto {
     @NotNull
     private String style;
 
-    public ProjectNewDto() {
+    public ProjectFromClientDto() {
     }
 
-    public ProjectNewDto(Long author, String title, String data, String style) {
-        this.author = author;
+    public ProjectFromClientDto(String title, String data, String style) {
         this.title = title;
         this.data = data;
         this.style = style;
-    }
-
-    public Long getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Long author) {
-        this.author = author;
     }
 
     public String getTitle() {

@@ -1,9 +1,12 @@
 package pl.zbrogdom.csspatternapp.project;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 import pl.zbrogdom.csspatternapp.user.Author;
 
 import java.time.LocalDateTime;
+
 
 @Entity
 public class Project {

@@ -1,5 +1,6 @@
 package pl.zbrogdom.csspatternapp.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import pl.zbrogdom.csspatternapp.project.Project;
 
@@ -18,6 +19,7 @@ public class Author {
     private String password;
     private String homePage;
     @OneToMany(mappedBy = "author")
+    @JsonIgnore
     private List<Project> projects = new ArrayList<>();
 
     public Author() {
