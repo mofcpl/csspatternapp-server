@@ -52,7 +52,7 @@ public class AuthorController {
 
     @PostMapping
     ResponseEntity<AuthorForClientDto> save(@Valid @RequestBody AuthorFromClientDto authorNewDto) {
-        AuthorForClientDto savedAuthor = this.service.saveProject(authorNewDto);
+        AuthorForClientDto savedAuthor = this.service.saveAuthor(authorNewDto);
         URI savedEntityLocation = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(savedAuthor.getId())

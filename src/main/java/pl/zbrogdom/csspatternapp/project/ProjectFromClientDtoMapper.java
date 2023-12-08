@@ -1,7 +1,6 @@
 package pl.zbrogdom.csspatternapp.project;
 
 import org.springframework.stereotype.Service;
-import pl.zbrogdom.csspatternapp.user.Author;
 import pl.zbrogdom.csspatternapp.user.AuthorRepository;
 
 @Service
@@ -12,7 +11,6 @@ public class ProjectFromClientDtoMapper {
     public ProjectFromClientDtoMapper(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
-
 
     Project map(ProjectFromClientDto dto) {
         Project project = new Project();

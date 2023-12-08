@@ -9,14 +9,14 @@ public class AuthorFromClientDtoMapper {
         Author author = new Author();
         author.setEmail(dto.getEmail());
         author.setName(dto.getName());
-        author.setHomePage(dto.getHomePage());
+        author.setHomepage(dto.getHomepage());
         author.setPassword(dto.getPassword());
         return author;
     }
 
     AuthorFromClientDto map(Author author) {
         AuthorFromClientDto dto = new AuthorFromClientDto();
-        dto.setHomePage(author.getHomePage());
+        dto.setHomepage(author.getHomepage());
         dto.setName(author.getName());
         dto.setEmail(author.getEmail());
         dto.setPassword(author.getPassword());

@@ -5,7 +5,7 @@ public class AuthorForClientDto {
     private Long id;
     private String name;
     private String email;
-    private String homePage;
+    private String homepage;
     private Long[] projects;
 
     public AuthorForClientDto() {
@@ -15,7 +15,7 @@ public class AuthorForClientDto {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.homePage = homePage;
+        this.homepage = homePage;
         this.projects = projects;
     }
 
@@ -43,12 +43,12 @@ public class AuthorForClientDto {
         this.email = email;
     }
 
-    public String getHomePage() {
-        return homePage;
+    public String getHomepage() {
+        return homepage;
     }
 
-    public void setHomePage(String homePage) {
-        this.homePage = homePage;
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
     }
 
     public Long[] getProjects() {

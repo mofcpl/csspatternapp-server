@@ -20,7 +20,7 @@ public class AuthorForClientDtoMapper {
         dto.setId(author.getId());
         dto.setEmail(author.getEmail());
         dto.setName(author.getName());
-        dto.setHomePage(author.getHomePage());
+        dto.setHomepage(author.getHomepage());
         dto.setProjects(author.getProjects().stream().map(Project::getId).toArray(Long[]::new));
         return dto;
     }
@@ -30,7 +30,7 @@ public class AuthorForClientDtoMapper {
         author.setEmail(dto.getEmail());
         author.setId(dto.getId());
         author.setName(dto.getName());
-        author.setHomePage(dto.getHomePage());
+        author.setHomepage(dto.getHomepage());
         author.setProjects(Arrays.stream(dto.getProjects()).map(projectId -> repository.findById(projectId).orElse(null)).toList());
         return author;
     }

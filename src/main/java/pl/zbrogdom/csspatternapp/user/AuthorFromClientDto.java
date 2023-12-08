@@ -16,7 +16,7 @@ public class AuthorFromClientDto {
     private String email;
 
     @URL
-    private String homePage;
+    private String homepage;
 
     @NotNull
     @Size(min = 8)
@@ -28,7 +28,7 @@ public class AuthorFromClientDto {
     public AuthorFromClientDto(String name, String email, String homePage, String password) {
         this.name = name;
         this.email = email;
-        this.homePage = homePage;
+        this.homepage = homePage;
         this.password = password;
     }
 
@@ -48,12 +48,12 @@ public class AuthorFromClientDto {
         this.email = email;
     }
 
-    public String getHomePage() {
-        return homePage;
+    public String getHomepage() {
+        return homepage;
     }
 
-    public void setHomePage(String homePage) {
-        this.homePage = homePage;
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
     }
 
     public String getPassword() {

@@ -34,10 +34,11 @@ public class ProjectService {
 
 
 
-    public ProjectForClientDto saveProject(ProjectFromClientDto projectDto) {
+    public ProjectForClientDto saveProject(ProjectFromClientDto projectDto, Author author) {
         Project projectToSave = projectFromClientDtoMapper.map(projectDto);
         projectToSave.setPublishDate(LocalDateTime.now());
         projectToSave.setDownloads(0);
+        projectToSave.setAuthor(author);
         Project savedProject = this.repository.save(projectToSave);
         return projectForClientDtoMapper.map(savedProject);
     }

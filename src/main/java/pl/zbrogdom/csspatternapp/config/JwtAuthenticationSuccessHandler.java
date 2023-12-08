@@ -17,9 +17,11 @@ class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        String signedJWT = jwtService.createSignedJWT(authentication.getName());
-        new ObjectMapper().writeValue(response.getWriter(), new JwtWrapper(signedJWT));
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        String signedJWT = jwtService.createSignedJWT(userDetails.getEmail());
+        ResponseWrapper body = new ResponseWrapper(signedJWT, userDetails.getUsername(), userDetails.getId(), userDetails.getEmail(), userDetails.getHomepage());
+        new ObjectMapper().writeValue(response.getWriter(), body);
     }
 
-    private record JwtWrapper(String token){ }
+    private record ResponseWrapper(String token, String username, long id, String email, String homepage){ }
 }

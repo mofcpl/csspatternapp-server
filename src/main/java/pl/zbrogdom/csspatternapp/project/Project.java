@@ -20,7 +20,9 @@ public class Project {
     private Author author;
     private String title;
     private LocalDateTime publishDate;
+    @Lob
     private String data;
+    @Lob
     private String style;
     private int downloads;
 

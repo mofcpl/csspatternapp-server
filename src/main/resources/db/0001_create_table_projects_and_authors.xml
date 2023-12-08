@@ -14,11 +14,11 @@
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="style" type="VARCHAR(255)"/>
+            <column name="style" type="VARCHAR(1000)"/>
             <column name="title" type="VARCHAR(50)">
                 <constraints nullable="false" unique="true" />
             </column>
-            <column name="data" type="VARCHAR(255)"/>
+            <column name="data" type="VARCHAR(5000)"/>
         </createTable>
         <createTable tableName="author">
             <column name="id" type="BIGINT" autoIncrement="true">
@@ -27,7 +27,7 @@
             <column name="email" type="VARCHAR(50)">
                 <constraints nullable="false" unique="true" />
             </column>
-            <column name="home_page" type="VARCHAR(255)"/>
+            <column name="homepage" type="VARCHAR(255)"/>
             <column name="name" type="VARCHAR(50)">
                 <constraints nullable="false" unique="true" />
             </column>

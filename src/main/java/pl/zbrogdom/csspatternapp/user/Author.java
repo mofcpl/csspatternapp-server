@@ -17,7 +17,7 @@ public class Author {
     private String name;
     private String email;
     private String password;
-    private String homePage;
+    private String homepage;
     @OneToMany(mappedBy = "author")
     @JsonIgnore
     private List<Project> projects = new ArrayList<>();
@@ -30,7 +30,7 @@ public class Author {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.homePage = homePage;
+        this.homepage = homePage;
         this.projects = projects;
     }
 
@@ -66,12 +66,12 @@ public class Author {
         this.password = password;
     }
 
-    public String getHomePage() {
-        return homePage;
+    public String getHomepage() {
+        return homepage;
     }
 
-    public void setHomePage(String homePage) {
-        this.homePage = homePage;
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
     }
 
     public List<Project> getProjects() {

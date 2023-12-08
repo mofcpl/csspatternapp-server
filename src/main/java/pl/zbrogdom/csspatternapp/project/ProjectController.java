@@ -9,7 +9,6 @@ import jakarta.validation.Validator;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.FieldError;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
 import pl.zbrogdom.csspatternapp.user.Author;
+import pl.zbrogdom.csspatternapp.user.AuthorService;
 
 import java.lang.reflect.Method;
 import java.net.URI;
@@ -28,13 +28,15 @@ import java.util.*;
 @RequestMapping("/project")
 public class ProjectController {
 
-    private final ProjectService service;
+    private final ProjectService projectService;
+    private final AuthorService authorService;
     private final ObjectMapper objectMapper;
     private final Validator validator;
     private final ProjectFromClientDtoMapper projectFromClientDtoMapper;
 
-    public ProjectController(ProjectService service, ObjectMapper objectMapper, Validator validator, ProjectFromClientDtoMapper projectFromClientDtoMapper) {
-        this.service = service;
+    public ProjectController(ProjectService projectService, AuthorService authorService, ObjectMapper objectMapper, Validator validator, ProjectFromClientDtoMapper projectFromClientDtoMapper) {
+        this.projectService = projectService;
+        this.authorService = authorService;
         this.objectMapper = objectMapper;
         this.validator = validator;
         this.projectFromClientDtoMapper = projectFromClientDtoMapper;
@@ -42,19 +44,21 @@ public class ProjectController {
 
     @GetMapping()
     List<ProjectForClientDto> getProjects() {
-        return service.getProjects();
+        return projectService.getProjects();
     }
 
     @GetMapping("/{id}")
     ResponseEntity<ProjectForClientDto> getProject(@PathVariable long id) {
-        return service.getProject(id)
+        return projectService.getProject(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     ResponseEntity<ProjectForClientDto> save(@Valid @RequestBody ProjectFromClientDto projectDto) {
-        ProjectForClientDto savedProject = this.service.saveProject(projectDto);
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Author author = authorService.getAuthorByEmail(email).orElseThrow();
+        ProjectForClientDto savedProject = this.projectService.saveProject(projectDto, author);
         URI savedEntityLocation = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(savedProject.getId())
@@ -67,11 +71,11 @@ public class ProjectController {
     ResponseEntity<?> updateProject(@PathVariable Long id, @RequestBody JsonMergePatch patch) throws MethodArgumentNotValidException {
         try {
             String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            Project project = service.getProjectForPatch(id).orElseThrow();
+            Project project = projectService.getProjectForPatch(id).orElseThrow();
             if(!Objects.equals(email, project.getAuthor().getEmail())) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
             Project projectPatched = applyPatch(project, patch);
             manualValidation(projectFromClientDtoMapper.map(projectPatched));
-            service.updateProject(projectPatched);
+            projectService.updateProject(projectPatched);
         } catch (JsonPatchException | NoSuchMethodException | JsonProcessingException e) {
             return ResponseEntity.internalServerError().build();
         } catch (NoSuchElementException e) {
