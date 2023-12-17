@@ -58,11 +58,11 @@ public class SecurityConfig {
         AuthenticationManager authenticationManager = authenticationManagerBuilder.getOrBuild();
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtService);
         BearerTokenFilter bearerTokenFilter = new BearerTokenFilter(jwtService);
-        PathRequest.H2ConsoleRequestMatcher h2ConsoleRequestMatcher = PathRequest.toH2Console();
+        //PathRequest.H2ConsoleRequestMatcher h2ConsoleRequestMatcher = PathRequest.toH2Console();
         http.authorizeHttpRequests(requests -> requests
                 .requestMatchers(mvc.pattern(HttpMethod.GET, "/**")).permitAll()
                 .requestMatchers(mvc.pattern(HttpMethod.POST, "/author")).permitAll()
-                .requestMatchers(h2ConsoleRequestMatcher).permitAll()
+                //.requestMatchers(PathRequest.toH2Console()).permitAll()
                 .anyRequest().authenticated()
                 );
         http.sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

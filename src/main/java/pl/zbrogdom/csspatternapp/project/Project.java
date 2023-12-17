@@ -1,8 +1,10 @@
 package pl.zbrogdom.csspatternapp.project;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Type;
 import pl.zbrogdom.csspatternapp.user.Author;
 
 import java.time.LocalDateTime;
@@ -22,7 +24,7 @@ public class Project {
     private LocalDateTime publishDate;
     @Lob
     private String data;
-    @Lob
+    @Column(columnDefinition = "json")
     private String style;
     private int downloads;
 
