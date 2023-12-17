@@ -25,6 +25,7 @@ gradlew bootRun --args='--spring.profiles.active=dev'
 * Spring (Spring Security, Spring Data)
 * Liquibase
 * H2
+* MySQL
 
 ## Contributing
 
